@@ -36,7 +36,9 @@ Snake.prototype={
   },
   hasEatenSelf:function(){
     console.log(this.head.getCoord());
-    console.log();
+    console.log(this.body.forEach((pos)=>{
+      console.log(pos.getCoord)
+    }));
     return this.body.some((pos)=>{
       return hasBitten(pos,this.head);
     });
@@ -50,17 +52,17 @@ const hasBitten=function(body,head){
 };
 
 const hasHitTopBorder=function(headPos,topBorder=0){
-  return headPos[1]<=topBorder;
+  return headPos[1]<=topBorder+1;
 };
 
 const hasHitBottomBorder=function(headPos,bottomBorder){
-  return headPos[1]>=bottomBorder;
+  return headPos[1]>=bottomBorder-2;
 };
 
 const hasHitLeftBorder=function(headPos,leftBorder){
-  return headPos[0]<=leftBorder;
+  return headPos[0]<=leftBorder+1;
 };
 
 const hasHitRightBorder=function(headPos,rightBorder){
-  return headPos[0]>=rightBorder;
+  return headPos[0]>=rightBorder-2;
 };
