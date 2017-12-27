@@ -6,6 +6,9 @@ let numberOfCols=120;
 let animator=undefined;
 
 const animateSnake=function() {
+  if(snake.hasHit([numberOfRows,numberOfCols])){
+    endGame();
+  }
   let oldHead=snake.getHead();
   let oldTail=snake.move();
   let head=snake.getHead();
@@ -18,6 +21,12 @@ const animateSnake=function() {
     drawFood(food);
   }
 }
+
+const endGame=function(){
+  removekeyListeners();
+  let message=document.getElementById("message");
+  message.innerText="Game Over...";
+};
 
 const changeSnakeDirection=function(event) {
   switch (event.code) {
@@ -40,6 +49,11 @@ const addKeyListener=function() {
   grid.focus();
 }
 
+const removekeyListeners=function(){
+  let grid=document.getElementById("keys");
+  clearInterval(animator);
+};
+
 const createSnake=function() {
   let tail=new Position(12,10,"east");
   let body=[];
@@ -61,7 +75,7 @@ const startGame=function() {
   createFood(numberOfRows,numberOfCols);
   drawFood(food);
   addKeyListener();
-  animator=setInterval(animateSnake,140);
+  animator=setInterval(animateSnake,50);
 }
 
 window.onload=startGame;
