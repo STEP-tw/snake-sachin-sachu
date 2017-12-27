@@ -33,8 +33,21 @@ Snake.prototype={
     let hasHit=hasHitTop || hasHitBottom;
     hasHit= hasHit || hasHitLeft || hasHitRight;
     return hasHit;
+  },
+  hasEatenSelf:function(){
+    console.log(this.head.getCoord());
+    console.log();
+    return this.body.some((pos)=>{
+      return hasBitten(pos,this.head);
+    });
   }
 }
+
+const hasBitten=function(body,head){
+  let isbit= body.getCoord()[0]==head.getCoord()[0];
+  isbit=isbit && body.getCoord()[1]==head.getCoord()[1];
+  return isbit;
+};
 
 const hasHitTopBorder=function(headPos,topBorder=0){
   return headPos[1]<=topBorder;

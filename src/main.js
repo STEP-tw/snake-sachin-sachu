@@ -2,13 +2,16 @@ let snake=undefined;
 let food=undefined;
 let numberOfRows=60;
 let numberOfCols=120;
-
 let animator=undefined;
-
+let hasEnd=undefined;
 const animateSnake=function() {
-  if(snake.hasHit([numberOfRows,numberOfCols])){
+  hasEnd=snake.hasHit([numberOfRows,numberOfCols]) || snake.hasEatenSelf();
+  if(hasEnd){
     endGame();
   }
+  // console.log(snake.hasEatenSelf());
+  // console.log(snake.getBody());
+  // console.log(snake.getBody());
   let oldHead=snake.getHead();
   let oldTail=snake.move();
   let head=snake.getHead();
@@ -75,7 +78,7 @@ const startGame=function() {
   createFood(numberOfRows,numberOfCols);
   drawFood(food);
   addKeyListener();
-  animator=setInterval(animateSnake,50);
+  animator=setInterval(animateSnake,140);
 }
 
 window.onload=startGame;
