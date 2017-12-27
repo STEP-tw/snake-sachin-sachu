@@ -5,13 +5,12 @@ let numberOfCols=120;
 let animator=undefined;
 let hasEnd=undefined;
 const animateSnake=function() {
+  console.log(snake.head.getCoord());
   hasEnd=snake.hasHit([numberOfRows,numberOfCols]) || snake.hasEatenSelf();
   if(hasEnd){
     endGame();
   }
-  // console.log(snake.hasEatenSelf());
-  // console.log(snake.getBody());
-  // console.log(snake.getBody());
+
   let oldHead=snake.getHead();
   let oldTail=snake.move();
   let head=snake.getHead();
@@ -26,9 +25,24 @@ const animateSnake=function() {
 }
 
 const endGame=function(){
-  removekeyListeners();
+  clearInterval(animator);
   let message=document.getElementById("message");
   message.innerText="Game Over...";
+  restart();
+};
+
+const restart=function(){
+  let restart=document.getElementById('restart');
+  let button=createElement("button","Restart");
+  button.onclick=()=>location.reload(true);
+  restart.appendChild(button);
+};
+
+const createElement=function(type,textNode){
+  let element=document.createElement(type);
+  let name=document.createTextNode(textNode);
+  element.appendChild(name);
+  return element;
 };
 
 const changeSnakeDirection=function(event) {
@@ -50,11 +64,6 @@ const addKeyListener=function() {
   let grid=document.getElementById("keys");
   grid.onkeyup=changeSnakeDirection;
   grid.focus();
-}
-
-const removekeyListeners=function(){
-  let grid=document.getElementById("keys");
-  clearInterval(animator);
 };
 
 const createSnake=function() {
